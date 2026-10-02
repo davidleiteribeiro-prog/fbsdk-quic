@@ -1,0 +1,31 @@
+{
+  "name": "cordova-plugin-fbsdk",
+  "version": "5.0.2",
+  "description": "Cordova Facebook SDK Plugin",
+  "cordova": {
+    "id": "cordova-plugin-fbsdk",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaximBelov/cordova-plugin-fbsdk.git"
+  },
+  "homepage": "https://github.com/MaximBelov/cordova-plugin-fbsdk#readme",
+  "bugs": {
+    "url": "https://github.com/MaximBelov/cordova-plugin-fbsdk/issues"
+  },
+  "keywords": [
+    "cordova",
+    "facebook",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "facebook-sdk",
+    "social",
+    "sharing"
+  ],
+  "license": "Apache-2.0"
+}
