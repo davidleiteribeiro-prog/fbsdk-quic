@@ -61,7 +61,8 @@
     // `!isAppLaunched, !hasInitializeBeenCalled`.
     __weak FacebookConnectPlugin *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf initFbSdkWithOpts:nil];
+        // ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque forçado
+        // [weakSelf initFbSdkWithOpts:nil];
     });
 }
 
@@ -323,7 +324,7 @@
         // here so both platforms fail the same call. Case-sensitive, as on Android.
         if (![[NSLocale ISOCurrencyCodes] containsObject:currency]) {
             CDVPluginResult *res = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                                    messageAsString:[NSString stringWithFormat:@"Invalid currency code: %@", currency]];
+                                                     messageAsString:[NSString stringWithFormat:@"Invalid currency code: %@", currency]];
             [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
             return;
         }
@@ -460,14 +461,14 @@
         NSLog(@"Checking permission %@.", value);
         if (![grantedPermissions containsObject:value]) { //checks if permissions does not exists
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                                             messageAsString:@"A permission has been denied"];
+                                                              messageAsString:@"A permission has been denied"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             return;
         }
     }
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                     messageAsString:@"All permissions have been accepted"];
+                                                      messageAsString:@"All permissions have been accepted"];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     return;
 }
@@ -675,11 +676,11 @@
         CDVPluginResult *pluginResult;
         if (![FBSDKProfile currentProfile]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                                          messageAsString:@"No current profile."];
+                                             messageAsString:@"No current profile."];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                          messageAsDictionary:[self profileObject]];
+                                         messageAsDictionary:[self profileObject]];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     }];
@@ -695,7 +696,7 @@
     CDVPluginResult *pluginResult;
     if (! [FBSDKAccessToken currentAccessToken]) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                                          messageAsString:@"You are not logged in."];
+                                         messageAsString:@"You are not logged in."];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
 
@@ -1112,7 +1113,9 @@ void FBMethodSwizzle(Class c, SEL originalSelector) {
     // for attribution and deferred deep links, and it only ever reads the options it is given
     // first: ApplicationDelegate.application(_:didFinishLaunchingWithOptions:) is guarded by
     // `!isAppLaunched, !hasInitializeBeenCalled`.
-    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
+    // ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque forçado
+    // [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     // Call existing method
     return [self FacebookConnectPlugin_application:application didFinishLaunchingWithOptions:launchOptions];
