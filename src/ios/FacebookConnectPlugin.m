@@ -61,13 +61,14 @@
     // `!isAppLaunched, !hasInitializeBeenCalled`.
     __weak FacebookConnectPlugin *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        // ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque forçado
+        // 1. ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque forçado via Cordova
         // [weakSelf initFbSdkWithOpts:nil];
     });
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *) notification {
-    [self initFbSdkWithOpts:notification.userInfo];
+    // 2. ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque via Notificação de Sistema do iOS
+    // [self initFbSdkWithOpts:notification.userInfo];
 }
 
 - (void) initFbSdkWithOpts:(NSDictionary *) launchOptions {
@@ -1114,7 +1115,7 @@ void FBMethodSwizzle(Class c, SEL originalSelector) {
     // first: ApplicationDelegate.application(_:didFinishLaunchingWithOptions:) is guarded by
     // `!isAppLaunched, !hasInitializeBeenCalled`.
     
-    // ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque forçado
+    // 3. ALTERAÇÃO DE PRIVACIDADE: Comentado para impedir o arranque forçado via interceção nativa
     // [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     // Call existing method
