@@ -212,6 +212,9 @@
 }
 
 - (void)setAdvertiserTrackingEnabled:(CDVInvokedUrlCommand *)command {
+    // ACORDAR O SDK ANTES DE EXECUTAR (Garante que as settings nativas existem)
+    [self initFbSdkWithOpts:nil];
+
     BOOL enabled = [[command argumentAtIndex:0] boolValue];
     [FBSDKSettings.sharedSettings setAdvertiserTrackingEnabled:enabled];
     [self returnGenericSuccess:command.callbackId];
@@ -280,6 +283,9 @@
         [self returnInvalidArgsError:command.callbackId];
         return;
     }
+
+    // ACORDAR O SDK ANTES DE EXECUTAR (Garante que corre na thread principal)
+    [self initFbSdkWithOpts:nil];
 
     [self.commandDelegate runInBackground:^{
         // For more verbose output on logging uncomment the following:
